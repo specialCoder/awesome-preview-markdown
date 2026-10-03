@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awesome Preview Markdown — side-by-side Markdown preview for Chrome</title>
+<meta name="description" content="A Chrome extension that previews local and remote Markdown in a dual pane with TOC, Mermaid diagrams, syntax highlighting, copy buttons and synced scrolling.">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --bd:#30363d; --fg:#e6edf3; --mut:#9198a1;
+    --acc:#4c8dff; --acc2:#7ee787; --rad:14px; --max:1040px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;}
+  a{color:var(--acc);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  header.hero{padding:76px 0 54px;text-align:center;
+    background:radial-gradient(1200px 400px at 50% -120px,rgba(76,141,255,.22),transparent 70%);}
+  .logo{width:76px;height:76px;border-radius:18px;margin:0 auto 18px;display:block;
+    background:linear-gradient(135deg,#4c8dff,#7ee787);box-shadow:0 8px 30px rgba(76,141,255,.35)}
+  h1{font-size:40px;line-height:1.15;margin:0 0 12px;letter-spacing:-.5px}
+  .tag{color:var(--mut);font-size:19px;max-width:640px;margin:0 auto 26px}
+  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:600;border:1px solid var(--bd)}
+  .btn.primary{background:var(--acc);color:#fff;border-color:var(--acc)}
+  .btn.primary:hover{filter:brightness(1.08);text-decoration:none}
+  .btn.ghost{color:var(--fg);background:var(--panel)}
+  section{padding:46px 0;border-top:1px solid var(--bd)}
+  h2{font-size:26px;margin:0 0 22px;letter-spacing:-.3px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--bd);border-radius:var(--rad);padding:20px}
+  .card h3{margin:0 0 6px;font-size:17px}
+  .card p{margin:0;color:var(--mut);font-size:14.5px}
+  .ico{font-size:22px;line-height:1;margin-bottom:10px;display:block}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:0;max-width:680px}
+  ol.steps li{position:relative;padding:0 0 16px 44px;color:var(--mut)}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;
+    width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:14px}
+  ol.steps b{color:var(--fg)}
+  code{background:#1f2733;padding:2px 6px;border-radius:5px;font-size:13.5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  pre{background:#0b0f16;border:1px solid var(--bd);border-radius:10px;padding:14px 16px;overflow:auto}
+  pre code{background:none;padding:0}
+  table.keys{width:100%;border-collapse:collapse;max-width:520px}
+  table.keys td{padding:8px 10px;border-bottom:1px solid var(--bd);font-size:14.5px}
+  table.keys td:first-child{width:70px}
+  kbd{background:#1f2733;border:1px solid var(--bd);border-bottom-width:2px;border-radius:6px;
+    padding:2px 8px;font-family:ui-monospace,monospace;font-size:13px}
+  .note{background:rgba(126,231,135,.08);border:1px solid rgba(126,231,135,.3);
+    border-radius:10px;padding:14px 16px;color:var(--mut);font-size:14.5px;max-width:680px}
+  footer{padding:34px 0 54px;border-top:1px solid var(--bd);color:var(--mut);font-size:14px;text-align:center}
+  .shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .shots figure{margin:0;background:var(--panel);border:1px solid var(--bd);border-radius:var(--rad);overflow:hidden}
+  .shots img{display:block;width:100%;height:auto;border-bottom:1px solid var(--bd)}
+  .shots figcaption{padding:10px 14px;color:var(--mut);font-size:13.5px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="logo"></span>
+    <h1>Awesome Preview Markdown</h1>
+    <p class="tag">Preview local &amp; remote Markdown in a side-by-side dual pane — with table of
+      contents, Mermaid diagrams, syntax highlighting, one-click copy, and synchronized scrolling.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/specialCoder/awesome-preview-markdown">View on GitHub</a>
+      <a class="btn ghost" href="#install">Install guide</a>
+    </div>
+  </div>
+</header>
+
+<section id="features">
+  <div class="wrap">
+    <h2>Features</h2>
+    <div class="grid">
+      <div class="card"><span class="ico">🖱️</span><h3>Right-click to preview</h3><p>“Preview markdown on side” opens any Markdown tab in Chrome’s side panel.</p></div>
+      <div class="card"><span class="ico">◫</span><h3>Dual-pane layout</h3><p>Source and preview side by side with one shared toolbar and a draggable splitter.</p></div>
+      <div class="card"><span class="ico">📑</span><h3>Table of contents</h3><p>Right-docked, in-flow TOC with scroll-spy and click-to-jump. Never floats over content.</p></div>
+      <div class="card"><span class="ico">📊</span><h3>Mermaid diagrams</h3><p>Flowchart, sequence, class, state, ER, Gantt, pie, journey, gitGraph, mindmap, timeline.</p></div>
+      <div class="card"><span class="ico">🎨</span><h3>Highlight + copy</h3><p>~70 languages via highlight.js, each block labeled with a one-click Copy button.</p></div>
+      <div class="card"><span class="ico">🔗</span><h3>Synced scrolling</h3><p>Line-accurate two-way sync between source and preview. Toggleable.</p></div>
+      <div class="card"><span class="ico">⛶</span><h3>Fullscreen &amp; theme</h3><p>Fullscreen preview and light/dark switching.</p></div>
+      <div class="card"><span class="ico">🔒</span><h3>No self-fetching</h3><p>The browser opens content; the extension only reads the tab. No network calls of its own.</p></div>
+      <div class="card"><span class="ico">📈</span><h3>Status bar</h3><p>Live <code>lines · words · KB</code> stats, file name and reading position.</p></div>
+      <div class="card"><span class="ico">💾</span><h3>Remembers settings</h3><p>Theme, layout, TOC, sync and splitter position persist across sessions.</p></div>
+      <div class="card"><span class="ico">🔄</span><h3>Auto-follows the tab</h3><p>The preview refreshes when the source tab navigates or reloads.</p></div>
+      <div class="card"><span class="ico">🌗</span><h3>System dark mode</h3><p>On first run the theme follows your OS light/dark preference.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>Install (load unpacked)</h2>
+    <ol class="steps">
+      <li><b>Clone or download</b> the repository.</li>
+      <li>Open <code>chrome://extensions</code> and enable <b>Developer mode</b>.</li>
+      <li>Click <b>Load unpacked</b> and select the <b>repo root</b> (the folder with <code>manifest.json</code>).</li>
+      <li>Pin the icon, open a Markdown file in a tab, then <b>right-click → Preview markdown on side</b>.</li>
+    </ol>
+    <p class="note">To preview local <code>file://</code> Markdown, open the extension’s <b>Details</b>
+      in <code>chrome://extensions</code> and enable <b>Allow access to file URLs</b>. Remote
+      <code>http(s)://</code> files need no extra setting.</p>
+  </div>
+</section>
+
+<section id="shortcuts">
+  <div class="wrap">
+    <h2>Keyboard shortcuts</h2>
+    <table class="keys">
+      <tr><td><kbd>1</kbd></td><td>Source-only layout</td></tr>
+      <tr><td><kbd>2</kbd></td><td>Split layout</td></tr>
+      <tr><td><kbd>3</kbd></td><td>Preview-only layout</td></tr>
+      <tr><td><kbd>T</kbd></td><td>Toggle table of contents</td></tr>
+      <tr><td><kbd>S</kbd></td><td>Toggle synchronized scrolling</td></tr>
+      <tr><td><kbd>F</kbd></td><td>Toggle fullscreen</td></tr>
+      <tr><td><kbd>D</kbd></td><td>Toggle light / dark theme</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <h2>Screenshots</h2>
+    <div class="shots">
+      <figure><img src="assets/usage.png" alt="Right-click → Preview markdown on side, dual pane"><figcaption>Right-click → <b>Preview markdown on side</b></figcaption></figure>
+      <figure><img src="assets/layout.png" alt="Layout modes and draggable splitter"><figcaption>Layout modes + draggable splitter</figcaption></figure>
+      <figure><img src="assets/multiple-code-language.png" alt="Syntax highlighting across languages with copy buttons"><figcaption>Multi-language highlighting + copy</figcaption></figure>
+      <figure><img src="assets/mermaid.png" alt="Mermaid diagrams"><figcaption>Mermaid diagrams</figcaption></figure>
+      <figure><img src="assets/fullscreen.png" alt="Fullscreen preview with table of contents"><figcaption>Fullscreen + table of contents</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="try">
+  <div class="wrap">
+    <h2>Try it</h2>
+    <p style="color:var(--mut);max-width:680px">The repo ships sample documents for testing, including a
+      feature stress file that exercises every renderer path.</p>
+    <pre><code>python3 -m http.server 8765
+# open http://localhost:8765/samples/stress.md, then right-click → Preview markdown on side</code></pre>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Built with marked, DOMPurify, highlight.js, mermaid &amp; github-markdown-css.<br>
+    Licensed under <a href="https://github.com/specialCoder/awesome-preview-markdown/blob/main/LICENSE">Apache-2.0</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

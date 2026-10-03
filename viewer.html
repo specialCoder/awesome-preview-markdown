@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-layout="split">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markdown Preview</title>
+<link rel="stylesheet" id="md-css-light" href="vendor/github-markdown-light.min.css">
+<link rel="stylesheet" id="md-css-dark" href="vendor/github-markdown-dark.min.css" disabled>
+<link rel="stylesheet" id="hl-css-light" href="vendor/github.min.css">
+<link rel="stylesheet" id="hl-css-dark" href="vendor/github-dark.min.css" disabled>
+<link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="i-toc" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M2.5 4h3M2.5 8h3M2.5 12h3M8 4h7.5M8 8h7.5M8 12h7.5"/>
+    </g>
+    <g id="i-sync" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.5 6.5A5.5 5.5 0 0 1 12.8 5M13.5 9.5A5.5 5.5 0 0 1 3.2 11"/>
+      <path d="M12.8 2v3h-3M3.2 14v-3h3"/>
+    </g>
+    <g id="i-sun" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <circle cx="8" cy="8" r="3.1"/>
+      <path d="M8 1.4v1.7M8 12.9v1.7M1.4 8h1.7M12.9 8h1.7M3.3 3.3l1.2 1.2M11.5 11.5l1.2 1.2M12.7 3.3l-1.2 1.2M4.5 11.5l-1.2 1.2"/>
+    </g>
+    <g id="i-moon" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13.4 9.6A5.8 5.8 0 0 1 6.4 2.6a5.8 5.8 0 1 0 7 7z"/>
+    </g>
+    <g id="i-expand" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 2.5H2.5V6M10 2.5h3.5V6M6 13.5H2.5V10M10 13.5h3.5V10"/>
+    </g>
+    <g id="i-compress" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.5 6H6V2.5M13.5 6H10V2.5M2.5 10H6v3.5M13.5 10H10v3.5"/>
+    </g>
+    <g id="i-reload" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13.2 8a5.2 5.2 0 1 1-1.6-3.7"/>
+      <path d="M13.4 2.4v3.1h-3.1"/>
+    </g>
+    <g id="i-split" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.2" y="3.2" width="11.6" height="9.6" rx="1.2"/>
+      <path d="M8 3.2v9.6"/>
+    </g>
+    <g id="i-source" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.2" y="3.2" width="11.6" height="9.6" rx="1.2"/>
+      <path d="M5 6.6h6M5 9.4h4"/>
+    </g>
+    <g id="i-preview" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.2" y="3.2" width="11.6" height="9.6" rx="1.2"/>
+      <path d="M4.4 6.2h7.2M4.4 8.6h7.2M4.4 11h4"/>
+    </g>
+    <g id="i-flame" fill="currentColor">
+      <path d="M8 16c3.314 0 6-2 6-5.5 0-1.5-.5-4-2.5-6 .25 1.5-1.25 2-1.25 2C11 4 8 .5 6 0c.357 2 .5 4-2 6-1.25 1-2 2.729-2 4.5C2 14 4.686 16 8 16Zm0-1c-1.657 0-3-1-3-2.75 0-.75.25-2 1.25-3C6.125 10 7 10.5 7 10.5c-.375-1.25.5-3.25 2-3.5-.179 1-.25 2 1 3 .625.5 1 1.364 1 2.25C11 14 9.657 15 8 15Z"/>
+    </g>
+  </defs>
+</svg>
+
+<div id="app">
+
+  <header id="toolbar">
+    <div class="tb-group tb-left">
+      <span id="doc-label" class="doc-label"></span>
+    </div>
+
+    <div class="tb-group tb-right">
+      <div class="seg" id="layout-seg" role="group" aria-label="Layout">
+        <button class="seg-btn" data-layout="source" title="Source only">
+          <svg viewBox="0 0 16 16" width="16" height="16"><use href="#i-source"/></svg>
+        </button>
+        <button class="seg-btn" data-layout="split" title="Split: source + preview">
+          <svg viewBox="0 0 16 16" width="16" height="16"><use href="#i-split"/></svg>
+        </button>
+        <button class="seg-btn" data-layout="preview" title="Preview only">
+          <svg viewBox="0 0 16 16" width="16" height="16"><use href="#i-preview"/></svg>
+        </button>
+      </div>
+      <span class="tb-sep"></span>
+      <button id="btn-toc" class="tb-btn is-on" title="Toggle table of contents (T)">
+        <svg viewBox="0 0 16 16" width="16" height="16"><use href="#i-toc"/></svg>
+      </button>
+      <button id="btn-sync" class="tb-btn is-on" title="Toggle synced scrolling (S)">
+        <svg viewBox="0 0 16 16" width="16" height="16"><use href="#i-sync"/></svg>
+      </button>
+      <button id="btn-theme" class="tb-btn" title="Toggle light/dark theme">
+        <svg viewBox="0 0 16 16" width="16" height="16"><use href="#i-moon"/></svg>
+      </button>
+      <span class="tb-sep"></span>
+      <button id="btn-fullscreen" class="tb-btn" title="Toggle fullscreen (F)">
+        <svg viewBox="0 0 16 16" width="16" height="16"><use href="#i-expand"/></svg>
+      </button>
+      <button id="btn-reload" class="tb-btn" title="Reload current document">
+        <svg viewBox="0 0 16 16" width="16" height="16"><use href="#i-reload"/></svg>
+      </button>
+      <span class="tb-sep"></span>
+      <a id="btn-promo" class="tb-btn tb-promo" href="https://i.eatmango.cn/" target="_blank" rel="noopener noreferrer" title="More apps — opens in a new tab">
+        <svg viewBox="0 0 16 16" width="16" height="16"><use href="#i-flame"/></svg>
+        <span>More apps&hellip;</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="panes">
+    <section id="source-pane" aria-label="Markdown source">
+      <div id="source-scroll" class="scroller" tabindex="0">
+        <div id="source"></div>
+      </div>
+    </section>
+
+    <div id="splitter" role="separator" aria-orientation="vertical" title="Drag to resize"></div>
+
+    <section id="preview-pane" aria-label="Rendered preview">
+      <div id="preview-scroll" class="scroller" tabindex="0">
+        <article id="preview" class="markdown-body"></article>
+      </div>
+      <nav id="toc" aria-label="Table of contents">
+        <div class="toc-head">
+          <span>Contents</span>
+          <button id="btn-toc-close" class="toc-close" title="Hide contents">&times;</button>
+        </div>
+        <div id="toc-list"></div>
+      </nav>
+    </section>
+
+    <div id="empty" class="empty">
+      <div class="empty-card">
+        <h1>Markdown Preview</h1>
+        <p>Open a Markdown document in a browser tab &mdash; a local <code>file://</code> file or a
+        remote <code>.md</code> URL &mdash; then click the toolbar icon, or right&#8209;click the page
+        or a link and choose <strong>&ldquo;Preview markdown on side&rdquo;</strong>.</p>
+        <p>The browser does the opening; this panel renders whatever the tab shows.</p>
+        <p class="hint">Tip: when the side panel is narrow, use the layout buttons or press
+        <strong>F</strong> for a wider, fullscreen view.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer id="statusbar">
+    <span id="st-name" class="st st-name">No document</span>
+    <span id="st-msg" class="st st-msg"></span>
+    <span class="st-grow"></span>
+    <span id="st-pos" class="st"></span>
+    <span id="st-stats" class="st"></span>
+  </footer>
+
+</div>
+
+<div id="banner" class="banner" hidden></div>
+<div id="toast" class="toast" hidden></div>
+
+<script src="vendor/marked.min.js"></script>
+<script src="vendor/purify.min.js"></script>
+<script src="vendor/highlight.min.js"></script>
+<script src="vendor/hljs-extra.min.js"></script>
+<script src="vendor/mermaid.min.js"></script>
+<script src="viewer.js"></script>
+</body>
+</html>

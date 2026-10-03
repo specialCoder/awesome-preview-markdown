@@ -1,0 +1,24 @@
+# ---- OS ----
+.DS_Store
+Thumbs.db
+
+# ---- Editors / IDEs ----
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ---- Node / tooling (if added later) ----
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# ---- Build / packaging artifacts ----
+dist/
+build/
+*.zip
+*.crx
+*.pem
+
+# NOTE: vendor/ and icons/ are intentionally tracked — the extension loads
+# unpacked straight from the repo root and needs them present.
