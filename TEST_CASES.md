@@ -33,10 +33,11 @@ python3 -m http.server 8765
 
 | # | Steps | Expected | ☐ |
 |---|-------|----------|---|
-| B1 | Open a raw Markdown URL, e.g. `https://raw.githubusercontent.com/markedjs/marked/master/README.md`, then preview | Renders | ☐ |
-| B2 | Right-click a GitHub **blob** link to a `.md` file → preview | Opens `raw.githubusercontent.com` in a new background tab and previews it | ☐ |
-| B3 | Open a remote Markdown containing images with relative/absolute URLs | Images load per browser behavior | ☐ |
-| B4 | Preview a large remote Markdown (1000+ lines) | Renders without freezing; scrolling stays smooth | ☐ |
+| B1 | Open this project's own raw fixture `https://raw.githubusercontent.com/specialCoder/awesome-preview-markdown/refs/heads/main/samples/stress.md`, then preview | Full `stress.md` renders: tables, ~40 highlighted code blocks, 11 mermaid diagrams, TOC | ☐ |
+| B2 | Right-click the GitHub **blob** link `https://github.com/specialCoder/awesome-preview-markdown/blob/main/samples/stress.md` → preview | `normalizeUrl` opens `raw.githubusercontent.com` in a new background tab and previews it | ☐ |
+| B3 | Open a raw Markdown URL, e.g. `https://raw.githubusercontent.com/markedjs/marked/master/README.md`, then preview | Renders | ☐ |
+| B4 | Open a remote Markdown containing images with relative/absolute URLs | Images load per browser behavior | ☐ |
+| B5 | Preview a large remote Markdown (1000+ lines) | Renders without freezing; scrolling stays smooth | ☐ |
 
 ## C. Feature checklist (use `samples/stress.md`)
 
@@ -49,7 +50,7 @@ python3 -m http.server 8765
 | C5 | Sync scroll (`S`) | Scrolling one pane moves the other proportionally | ☐ |
 | C6 | Fullscreen (`F`) | Enters/exits fullscreen preview | ☐ |
 | C7 | Theme (`D`) | Light/dark switch, applies to preview + code + TOC | ☐ |
-| C8 | Pop-out window | Detaches preview to a resizable window | ☐ |
+| C8 | Side panel unavailable → fallback | If `sidePanel.open()` can't run, preview opens in a **new tab in the same window** (no separate window) | ☐ |
 | C9 | Reload button | Re-reads the tab and re-renders | ☐ |
 | C10 | Code blocks | ~40 languages highlighted; language label shown | ☐ |
 | C11 | Copy button | Copies exact code text to clipboard | ☐ |

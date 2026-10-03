@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Awesome Preview Markdown</title>
+<meta name="description" content="Privacy policy for the Awesome Preview Markdown Chrome extension. It collects no data and makes no network requests.">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --bd:#30363d; --fg:#e6edf3; --mut:#9198a1;
+    --acc:#4c8dff; --acc2:#7ee787; --rad:14px; --max:820px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"PingFang SC","Microsoft YaHei",sans-serif;}
+  a{color:var(--acc);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+  header.hero{padding:64px 0 30px;text-align:center;
+    background:radial-gradient(1000px 360px at 50% -120px,rgba(76,141,255,.22),transparent 70%);}
+  header.hero h1{margin:0 0 8px;font-size:30px;letter-spacing:-.3px}
+  header.hero p{margin:0;color:var(--mut)}
+  main{padding:34px 0 72px}
+  h2{font-size:20px;margin:34px 0 10px;padding-top:6px}
+  p,li{color:#cdd5df}
+  ul{padding-left:22px} li{margin:6px 0}
+  .card{background:var(--panel);border:1px solid var(--bd);border-radius:var(--rad);
+    padding:20px 22px;margin:18px 0}
+  .good{color:var(--acc2);font-weight:600}
+  .updated{color:var(--mut);font-size:14px}
+  footer{border-top:1px solid var(--bd);padding:22px 0 40px;color:var(--mut);font-size:14px;text-align:center}
+  .back{display:inline-block;margin-bottom:10px}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <h1>Privacy Policy</h1>
+    <p>Awesome Preview Markdown · Chrome extension</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <a class="back" href="./index.html">&larr; Back to the extension page</a>
+
+    <div class="card">
+      <p style="margin-top:0"><span class="good">TL;DR —</span> Awesome Preview Markdown
+      collects <strong>no personal data</strong>, makes <strong>no network requests</strong>,
+      and never stores or transmits the contents of the documents you preview. Everything is
+      rendered locally on your own device.</p>
+      <p class="updated" style="margin-bottom:0">Last updated: 2026-10-03</p>
+    </div>
+
+    <h2>What we do</h2>
+    <p>The extension's single purpose is to preview Markdown. When you open a Markdown file,
+    raw URL, or GitHub page in Chrome and choose to preview it, the extension reads the plain
+    text that is <em>already displayed in that tab</em> and renders it as formatted HTML in
+    Chrome's side panel beside the page you were working on.</p>
+
+    <h2>What we do <span class="good">not</span> do</h2>
+    <ul>
+      <li>We do <strong>not</strong> collect, transmit, or store any personally identifiable
+      information.</li>
+      <li>We do <strong>not</strong> fetch documents on our own or make any network requests.
+      The extension never uploads your files anywhere.</li>
+      <li>We do <strong>not</strong> read, store, or analyze the content of the Markdown you
+      preview. It is rendered in memory and never leaves your device.</li>
+      <li>We do <strong>not</strong> track you, run analytics, show advertising, or add any
+      third-party trackers.</li>
+      <li>We do <strong>not</strong> collect browsing history or search queries.</li>
+    </ul>
+
+    <h2>Local storage</h2>
+    <p>The extension uses <code>chrome.storage</code> only to remember your own interface
+    preferences so they persist between sessions:</p>
+    <ul>
+      <li><strong>Theme</strong> (light / dark), <strong>layout mode</strong>,
+      <strong>table-of-contents</strong> and <strong>synced-scrolling</strong> toggles, and the
+      <strong>splitter position</strong>.</li>
+      <li>A short-lived, in-session reference to the tab you are previewing, used only to render
+      that preview. It is cleared automatically and never persisted.</li>
+    </ul>
+    <p>This data stays on your device, is never synced to any server, and is removed when you
+    uninstall the extension.</p>
+
+    <h2>Permissions</h2>
+    <p>The permissions the extension requests are used solely to deliver the preview described
+    above:</p>
+    <ul>
+      <li><strong>contextMenus</strong> — to add the "Preview markdown on side" right-click
+      command.</li>
+      <li><strong>sidePanel</strong> — to dock the reader beside the current page.</li>
+      <li><strong>scripting</strong> — to run one read-only function that reads the already
+      displayed text of the tab you chose to preview.</li>
+      <li><strong>storage</strong> — to remember your interface preferences as described above.</li>
+      <li><strong>clipboardWrite</strong> — so the "Copy" button on code blocks can copy code
+      text when you click it.</li>
+      <li><strong>Host access</strong> — because you may preview Markdown from many sources
+      (local files, raw URLs, GitHub). It is used only to read already-loaded content from the
+      tab you open; the extension does not request data from any site.</li>
+    </ul>
+
+    <h2>Children's privacy</h2>
+    <p>The extension does not knowingly collect any information from anyone, including children.
+    It is a general-purpose document viewer.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy changes in a way that affects how data is handled, this page will be
+    updated and the "Last updated" date above will change.</p>
+
+    <h2>Contact</h2>
+    <p>Questions? Open an issue on the project's GitHub repository:
+    <a href="https://github.com/specialCoder/awesome-preview-markdown" rel="noopener">
+    github.com/specialCoder/awesome-preview-markdown</a>.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    &copy; 2026 specialCoder · Awesome Preview Markdown ·
+    <a href="./index.html">Home</a>
+  </div>
+</footer>
+</body>
+</html>

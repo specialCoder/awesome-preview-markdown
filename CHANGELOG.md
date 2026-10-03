@@ -18,6 +18,12 @@ The `version` field in `manifest.json` is kept in sync with the latest entry bel
 - When the side panel can't be opened, the preview now falls back to a **new tab in the
   current window** instead of a separate pop-out window.
 
+### Fixed
+- Shortened the `manifest.json` `description` to 126 characters so it stays within the Chrome
+  Web Store's 132-character limit.
+- Removed the non-standard `"author"` key from `manifest.json` (authorship lives in `LICENSE`,
+  `NOTICE.md`, and the READMEs).
+
 ### Removed
 - The manual "Open in a window docked to the side" toolbar button and the pop-out window path.
 

@@ -2,8 +2,7 @@
   "manifest_version": 3,
   "name": "Awesome Preview Markdown",
   "version": "1.0.0",
-  "author": "specialCoder",
-  "description": "Preview local and remote Markdown files in a side-by-side dual pane with TOC, Mermaid diagrams, syntax highlighting, copy buttons and synced scrolling.",
+  "description": "Preview Markdown in a dual-pane side panel with TOC, Mermaid diagrams, syntax highlighting, copy buttons and synced scrolling.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
