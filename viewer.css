@@ -138,6 +138,7 @@ a.tb-btn { text-decoration: none; }
   color: var(--fg-dim);
   font-size: 12px;
   direction: rtl;
+  unicode-bidi: plaintext;
   text-align: left;
 }
 
@@ -348,7 +349,9 @@ html[data-theme="dark"] .sl-li { color: #56d39a; }
   opacity: 0;
   font-weight: 400;
   transition: opacity 0.1s;
+  user-select: none;
 }
+#preview .anchor::before { content: "#"; }
 #preview .md-heading:hover .anchor { opacity: 0.75; }
 #preview .anchor:hover { opacity: 1 !important; }
 
@@ -526,6 +529,14 @@ html[data-theme="dark"] #st-msg.is-error { color: #ff8b7a; }
 }
 html[data-theme="dark"] .banner { background: #2b1512; color: #ffc4ba; border-color: #7a2c22; }
 .banner strong { font-weight: 700; }
+.banner .banner-action {
+  display: inline-block; margin-top: 8px; padding: 4px 10px;
+  border: 1px solid currentColor; border-radius: 6px;
+  background: transparent; color: inherit;
+  font: inherit; font-weight: 600; font-size: 12px; cursor: pointer;
+}
+.banner .banner-action:hover { background: rgba(0, 0, 0, 0.06); }
+html[data-theme="dark"] .banner .banner-action:hover { background: rgba(255, 255, 255, 0.1); }
 .banner .banner-close {
   float: right; margin-left: 10px; border: 0; background: transparent;
   color: inherit; font-size: 16px; line-height: 1; cursor: pointer; opacity: 0.65;

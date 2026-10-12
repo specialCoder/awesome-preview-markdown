@@ -52,6 +52,7 @@ const state = {
   docName: '',
   tabId: null,
   lastTs: 0,
+  sourceClosed: false,
   theme: 'light',
   layout: 'split',
   layoutSaved: false,
@@ -119,6 +120,21 @@ function nameFor(url) {
   }
 }
 
+// Percent-encoding is unreadable for CJK filenames, so the path label shows a
+// decoded form. This is display-only; the raw URL stays in `title` and `state`.
+function displayUrl(url) {
+  if (!url) return '';
+  try {
+    const u = new URL(url);
+    const path = u.pathname.split('/').map((s) => {
+      try { return decodeURIComponent(s); } catch { return s; }
+    }).join('/');
+    return `${u.protocol}//${u.host}${path}${u.search}${u.hash}`;
+  } catch {
+    try { return decodeURIComponent(url); } catch { return url; }
+  }
+}
+
 /**
  * Runs inside the target tab. The browser is what opens documents (local or
  * remote); we only read back the plain text it rendered. Chrome shows plain
@@ -144,7 +160,7 @@ function toast(text) {
   toast._t = setTimeout(() => { ui.toast.hidden = true; }, 1600);
 }
 
-function showBanner(title, detail) {
+function showBanner(title, detail, action) {
   ui.banner.replaceChildren();
   const close = document.createElement('button');
   close.className = 'banner-close';
@@ -155,6 +171,14 @@ function showBanner(title, detail) {
   const strong = document.createElement('strong');
   strong.textContent = title;
   ui.banner.append(close, strong, document.createTextNode(' ' + detail));
+  if (action && action.label) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'banner-action';
+    btn.textContent = action.label;
+    btn.addEventListener('click', () => action.onClick && action.onClick());
+    ui.banner.append(btn);
+  }
   ui.banner.hidden = false;
 }
 
@@ -226,7 +250,7 @@ marked.use({
       const line = lineMap.get(token);
       const inner = this.parser.parseInline(token.tokens);
       return `<h${token.depth} id="${id}" class="md-heading"${line != null ? ` data-line="${line}"` : ''}>`
-        + `<a class="anchor" href="#${id}" aria-hidden="true" tabindex="-1">#</a>${inner}</h${token.depth}>\n`;
+        + `<a class="anchor" href="#${id}" aria-hidden="true" tabindex="-1"></a>${inner}</h${token.depth}>\n`;
     },
 
     code(token) {
@@ -649,12 +673,9 @@ async function extractFromTab(tabId) {
   return results && results[0] ? results[0].result : null;
 }
 
-function describeReadError(url) {
-  if (url && url.startsWith('file:')) {
-    return 'Local file tabs need "Allow access to file URLs" enabled for this extension at chrome://extensions.';
-  }
-  return 'Chrome blocks extension scripts on chrome:// pages, the Web Store and similar internal pages, '
-    + 'and on tabs that are still loading or already closed.';
+// Clears the saved preview target so a later reload doesn't retry a dead tab.
+async function clearPendingTarget() {
+  try { if (hasChrome) await chrome.storage.session.remove('pendingTarget'); } catch { /* ignore */ }
 }
 
 async function loadTarget(target) {
@@ -667,6 +688,7 @@ async function loadTarget(target) {
   }
 
   state.tabId = target.tabId;
+  state.sourceClosed = false;
   ui.empty.hidden = true;
   setStatus('Reading tab…');
   try {
@@ -675,7 +697,7 @@ async function loadTarget(target) {
     state.docUrl = info.url || target.url || '';
     state.docName = nameFor(state.docUrl) || info.title || 'untitled.md';
     ui.stName.textContent = state.docName;
-    ui.docLabel.textContent = state.docUrl;
+    ui.docLabel.textContent = displayUrl(state.docUrl);
     ui.docLabel.title = state.docUrl;
 
     if (!info.looksPlain) {
@@ -687,9 +709,58 @@ async function loadTarget(target) {
     }
     await applyDocument(info.text || '', state.docName, state.docUrl);
   } catch (err) {
-    clearPanes();
-    setStatus('Could not read tab', true);
-    showBanner('Could not read this tab.', describeReadError(state.docUrl));
+    // Read failed. Resolve what we can about the target so the guidance is
+    // specific, but always fall back to the welcome screen (not an empty
+    // reader frame) with a prompt — the most common cause is a local file
+    // whose "Allow access to file URLs" toggle is still off.
+    let url = state.docUrl || target.url || '';
+    let tab = null;
+    let tabKnown = false;
+    if (hasChrome && chrome.tabs && target.tabId != null) {
+      tabKnown = true;
+      try { tab = await chrome.tabs.get(target.tabId); } catch { tab = null; }
+      if (tab) url = url || tab.url || '';
+    }
+    const errMsg = String((err && err.message) || err || '');
+    const isFile = url.startsWith('file:') || /file:\/\//i.test(errMsg);
+
+    // Tab is gone → stale target. Clear it and prompt to reopen a file.
+    if (tabKnown && tab === null) {
+      await clearPendingTarget();
+      state.tabId = null;
+      state.sourceClosed = false;
+      showEmptyState();
+      showBanner('The source tab is closed.',
+        'Open a Markdown file (or its raw URL) in a tab, then right-click → Preview markdown on side, or click the toolbar icon.');
+      return;
+    }
+
+    showEmptyState();
+    setStatus('');
+    if (isFile) {
+      showBanner(
+        'This is a local file — enable file access once.',
+        'Chrome can’t grant this automatically. Open the extension’s Details page and turn on "Allow access to file URLs", then press Reload.',
+        { label: 'Open extension settings', onClick: openExtensionShortcuts }
+      );
+    } else {
+      showBanner(
+        'Couldn’t preview this tab.',
+        'If it’s a local file, enable "Allow access to file URLs" for this extension (button below) and press Reload. Chrome’s own pages (chrome://), the Web Store, and loading/closed tabs can’t be previewed.',
+        { label: 'Open extension settings', onClick: openExtensionShortcuts }
+      );
+    }
+  }
+}
+
+// chrome:// pages can't be opened by web content, but an extension page may
+// navigate the user straight to its own Details entry to flip the file toggle.
+function openExtensionShortcuts() {
+  const url = 'chrome://extensions/?id=' + chrome.runtime.id;
+  if (typeof chrome !== 'undefined' && chrome.tabs) {
+    chrome.tabs.create({ url, active: true });
+  } else {
+    window.open(url, '_blank', 'noopener,noreferrer');
   }
 }
 
@@ -705,6 +776,7 @@ function clearPanes() {
 
 function showEmptyState() {
   state.tabId = null;
+  state.sourceClosed = false;
   clearPanes();
   ui.empty.hidden = false;
   ui.docLabel.textContent = '';
@@ -718,7 +790,7 @@ async function applyDocument(text, name, url) {
   state.docName = name;
   state.docUrl = url;
   ui.empty.hidden = true;
-  ui.docLabel.textContent = url || '';
+  ui.docLabel.textContent = displayUrl(url);
   ui.docLabel.title = url || '';
   document.title = `${name} — Markdown Preview`;
 
@@ -840,8 +912,12 @@ async function copyText(text) {
 }
 
 function reload() {
-  if (state.tabId != null) loadTarget({ tabId: state.tabId });
-  else toast('No document loaded');
+  if (state.tabId != null) { loadTarget({ tabId: state.tabId }); return; }
+  if (state.sourceClosed && state.text) {
+    toast('Source tab is closed — reopen the file to refresh');
+    return;
+  }
+  toast('No document loaded');
 }
 
 /* -------------------------------------------------------------- wiring */
@@ -953,8 +1029,11 @@ function bindTabEvents() {
   });
   chrome.tabs.onRemoved.addListener((tabId) => {
     if (tabId !== state.tabId) return;
-    showEmptyState();
-    setStatus('Previewed tab was closed');
+    // Keep the rendered content as a snapshot so the source tab can be closed
+    // freely; only the live link (and Reload) is lost.
+    state.sourceClosed = true;
+    state.tabId = null;
+    setStatus('Source tab closed — showing last preview');
   });
 }
 

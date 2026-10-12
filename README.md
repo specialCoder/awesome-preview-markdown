@@ -20,7 +20,8 @@ no URL bar, no drag-and-drop, no background network requests.
 ## Features
 
 - **Right-click to preview** — "Preview markdown on side" opens the document in Chrome's
-  side panel; the toolbar icon does the same for the active tab.
+  side panel; the toolbar icon does the same for the active tab when it looks like Markdown
+  (otherwise it opens the panel to its welcome screen rather than erroring).
 - **Dual-pane layout** — source and preview side by side, with a single toolbar spanning
   both. Switch between *source only*, *split*, and *preview only*; drag the splitter to
   resize, or double-click it to reset to 50%.
@@ -41,7 +42,8 @@ no URL bar, no drag-and-drop, no background network requests.
 - **Remembers your settings** — theme, layout, TOC, sync, and splitter position persist
   across sessions (`chrome.storage.local`).
 - **Auto-follows the tab** — when the source tab navigates or reloads, the preview refreshes
-  automatically; closing the tab returns to the welcome screen.
+  automatically; if you close the source tab, the last preview is kept as a snapshot so the
+  tab is no longer pinned open.
 - **System dark mode** — on first run the theme follows your OS light/dark preference.
 - **Built from ready-made libraries** — no build step, no bundler; vendored `min.js`/`min.css`.
 

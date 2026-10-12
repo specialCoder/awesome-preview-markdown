@@ -13,16 +13,36 @@ The `version` field in `manifest.json` is kept in sync with the latest entry bel
 - Toolbar "More apps…" entry (flame icon) that opens https://i.eatmango.cn/ in a new tab.
 - `scripts/package.sh` — builds a distribution zip of only the runtime files
   (`dist/awesome-preview-markdown-v<version>.zip`, manifest at the zip root).
+- Guided banner when a local `file://` tab can't be read: Chrome cannot enable file access
+  programmatically, so the banner explains the one-time step and adds an **Open extension
+  settings** button that jumps to this extension's Details page.
 
 ### Changed
 - When the side panel can't be opened, the preview now falls back to a **new tab in the
   current window** instead of a separate pop-out window.
+- Clicking the toolbar icon no longer errors on unrelated pages: it only previews tabs that
+  look like a Markdown document (GitHub `blob` `.md` pages are normalized to raw first), and
+  otherwise opens the panel to its welcome screen.
+- The previewed source tab can now be **closed without losing the preview** — the rendered
+  content is kept as a snapshot; Reload simply reports that the source tab is closed until the
+  file is reopened.
 
 ### Fixed
 - Shortened the `manifest.json` `description` to 126 characters so it stays within the Chrome
   Web Store's 132-character limit.
 - Removed the non-standard `"author"` key from `manifest.json` (authorship lives in `LICENSE`,
   `NOTICE.md`, and the READMEs).
+- The path label now shows non-ASCII (e.g. Chinese) filenames correctly: added
+  `unicode-bidi: plaintext` so the left-truncation no longer reorders the text, and the label
+  displays a percent-decoded URL (raw URL kept in the hover title).
+- The heading hover anchor `#` is no longer copied with the text: it moved from a DOM text
+  node to a CSS `::before` (with `user-select: none`), so selecting/copying a heading yields
+  clean text while the anchor affordance stays visible on hover.
+- Any tab-read failure now falls back to the **welcome screen** (not an empty reader frame
+  with a red error) plus a guidance banner. A local `file://` that can't be read shows an
+  "enable file access" prompt with an **Open extension settings** button; a closed source tab
+  clears the stale target and tells the user how to preview again. This avoids the previous
+  generic "Chrome blocks extension scripts…" error and needs no new permissions.
 
 ### Removed
 - The manual "Open in a window docked to the side" toolbar button and the pop-out window path.
