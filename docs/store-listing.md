@@ -15,8 +15,10 @@ the store's limits.
 
 ## 1. Identity
 
+- **Store listing:** https://chromewebstore.google.com/detail/awesome-preview-markdown/baledpmnppklcmkdjdbpjloioelkpnjk
+- **Extension ID:** `baledpmnppklcmkdjdbpjloioelkpnjk`
 - **Name:** Awesome Preview Markdown
-- **Version:** 1.0.0 (kept in sync with `manifest.json` and `CHANGELOG.md`)
+- **Version:** 1.1.0 (kept in sync with `manifest.json` and `CHANGELOG.md`)
 - **Website:** https://specialcoder.github.io/awesome-preview-markdown/
 - **Source:** https://github.com/specialCoder/awesome-preview-markdown
 - **License:** Apache-2.0

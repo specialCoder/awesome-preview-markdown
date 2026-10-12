@@ -9,6 +9,8 @@ The `version` field in `manifest.json` is kept in sync with the latest entry bel
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-13
+
 ### Added
 - Toolbar "More apps…" entry (flame icon) that opens https://i.eatmango.cn/ in a new tab.
 - `scripts/package.sh` — builds a distribution zip of only the runtime files

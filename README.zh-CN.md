@@ -12,6 +12,9 @@
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 ![Manifest](https://img.shields.io/badge/manifest-V3-green)
 
+**[添加到 Chrome](https://chromewebstore.google.com/detail/awesome-preview-markdown/baledpmnppklcmkdjdbpjloioelkpnjk)**
+· [在线官网](https://specialcoder.github.io/awesome-preview-markdown/)
+
 ---
 
 ## 功能特性
@@ -47,7 +50,14 @@
 
 ---
 
-## 安装（加载已解压的扩展程序）
+## 安装
+
+### 从 Chrome 应用商店（推荐）
+
+点击 **[添加到 Chrome](https://chromewebstore.google.com/detail/awesome-preview-markdown/baledpmnppklcmkdjdbpjloioelkpnjk)**
+并确认即可。扩展会出现在工具栏，无需任何配置。
+
+### 从源码安装（加载已解压的扩展程序）
 
 1. 克隆或下载本仓库。
 2. 打开 Chrome，进入 `chrome://extensions`。
@@ -56,7 +66,7 @@
 5. 将扩展图标固定到工具栏，方便使用。
 
 > **预览本地 `file://` Markdown：** 在 `chrome://extensions` 中该扩展的卡片上点击**详情 / Details**，
-> 开启**允许访问文件网址 / Allow access to file URLs**。远程 `http(s)://` 文件无需额外设置。
+> 开启**允许访问文件网址 / Allow access to file URLs**。两种安装方式都适用。远程 `http(s)://` 文件无需额外设置。
 
 ---
 

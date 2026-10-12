@@ -15,6 +15,9 @@ no URL bar, no drag-and-drop, no background network requests.
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue)
 ![Manifest](https://img.shields.io/badge/manifest-V3-green)
 
+**[Add to Chrome](https://chromewebstore.google.com/detail/awesome-preview-markdown/baledpmnppklcmkdjdbpjloioelkpnjk)**
+· [Live website](https://specialcoder.github.io/awesome-preview-markdown/)
+
 ---
 
 ## Features
@@ -61,7 +64,14 @@ no URL bar, no drag-and-drop, no background network requests.
 
 ---
 
-## Install (load unpacked)
+## Install
+
+### From the Chrome Web Store (recommended)
+
+Click **[Add to Chrome](https://chromewebstore.google.com/detail/awesome-preview-markdown/baledpmnppklcmkdjdbpjloioelkpnjk)**
+and confirm. The extension appears in your toolbar — no setup needed.
+
+### From source (load unpacked)
 
 1. Clone or download this repository.
 2. Open Chrome and go to `chrome://extensions`.
@@ -71,8 +81,8 @@ no URL bar, no drag-and-drop, no background network requests.
 5. Pin the extension icon to the toolbar for quick access.
 
 > **Viewing local `file://` Markdown:** on the extension's card in `chrome://extensions`,
-> click **Details** and enable **Allow access to file URLs**. Remote `http(s)://` files need
-> no extra setting.
+> click **Details** and enable **Allow access to file URLs**. This applies to both install
+> methods. Remote `http(s)://` files need no extra setting.
 
 ---
 

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Awesome Preview Markdown",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Preview Markdown in a dual-pane side panel with TOC, Mermaid diagrams, syntax highlighting, copy buttons and synced scrolling.",
   "icons": {
     "16": "icons/icon16.png",
